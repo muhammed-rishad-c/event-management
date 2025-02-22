@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Your Slot - Aura Events</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #000;
+            color: #eee;
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background-color: #111;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 6px rgba(255, 193, 7, 0.2);
+        }
+
+        .navbar-left {
+            display: flex;
+            align-items: center;
+            margin-left: -1.5rem;
+        }
+
+        .navbar .brand {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ffc107;
+            margin-right: 2rem;
+            text-decoration: none;
+        }
+
+        .navbar a, .navbar button {
+            color: #ffc107;
+            text-decoration: none;
+            font-size: 1.2rem;
+            margin: 0 1rem;
+            transition: all 0.3s ease-in-out;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .navbar a i, .navbar button i {
+            font-size: 1.3rem;
+        }
+
+        .navbar a:hover, .navbar button:hover {
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        .booking-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #111;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(255, 193, 7, 0.2);
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeInDown 1s ease-out forwards;
+        }
+
+        .booking-container h2 {
+            color: #ffc107;
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #ffc107;
+            font-size: 1.1rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #333;
+            border-radius: 5px;
+            background-color: #222;
+            color: #eee;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #ffc107;
+            box-shadow: 0 0 5px rgba(255, 193, 7, 0.5);
+        }
+
+        .book-btn {
+            background-color: #ffc107;
+            color: #000;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .book-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .date-alert {
+            background-color: #333;
+            color: #ffc107;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .booked-date-indicator {
+            color: #ff4444;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        .home-btn {
+            background: none;
+            border: none;
+            color: #ffc107;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .home-btn:hover {
+            transform: scale(1.1);
+            color: #fff;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-left">
+            <a href="#" class="brand"><i class="fas fa-crown"></i> Aura Events</a>
+            <a href="/user/home"><i class="fas fa-home"></i> Home</a>
+            <a href="/user/booking-history"><i class="fas fa-history"></i> Check Orders</a>
+            <a href="/user/profile"><i class="fas fa-user"></i> Profile</a>
+        </div>
+        <div>
+            <button onclick="window.location.href='/user/logout'"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        </div>
+    </nav>
+
+    <div class="booking-container">
+        <h2>Book Your Slot</h2>
+        <div id="dateAlert" class="date-alert"></div>
+        <button class="home-btn" onclick="window.location.href='/user/home'">
+            <i class="fas fa-home"></i> HOME
+        </button>
+        <form id="bookingForm" action="/user/book-gender-slot" method="POST">
+            <input type="hidden" name="listId" value="<%= id %>">
+            <input type="hidden" name="username" value="<%= username %>">
+            <input type="hidden" name="image" value="<%= image %>">
+            
+            <div class="form-group">
+                <label for="programName">Program/Function:</label>
+                <select id="programName" name="programName" required>
+                    <option value="" disabled selected>Select your program/function</option>
+                    <option value="Wedding">Wedding</option>
+                    <option value="Engagement">Engagement</option>
+                    <option value="Birthday">Birthday</option>
+                    <option value="Anniversary">Anniversary</option>
+                    <option value="Corporate Event">Corporate Event</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="date">Select Date:</label>
+                <input type="date" id="date" name="date" required>
+                <div id="bookedDateIndicator" class="booked-date-indicator"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="time">Time:</label>
+                <input type="time" id="time" name="time" required>
+            </div>
+
+            <div class="form-group">
+                <label for="address">Address:</label>
+                <textarea id="address" name="address" placeholder="Enter complete address" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="pincode">Pincode:</label>
+                <input type="text" id="pincode" name="pincode" placeholder="Enter pincode" pattern="[0-9]{6}" title="Please enter a valid 6-digit pincode" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Event Description:</label>
+                <textarea id="description" name="description" placeholder="Enter additional details about your event" required></textarea>
+            </div>
+
+            <button type="submit" class="book-btn">Book Now</button>
+        </form>
+    </div>
+</body>
+</html>

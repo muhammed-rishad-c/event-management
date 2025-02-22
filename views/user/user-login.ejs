@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura Events - Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #000;
+            color: #eee;
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-container {
+            text-align: center;
+            width: 500px;
+            padding: 2rem;
+            border-radius: 10px;
+            background: #222;
+            border: 1px solid #333;
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+            color: #ffc107;
+            margin: 1rem auto;
+            animation: fadeIn 0.8s ease-out;
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .login-container:hover {
+            transform: scale(1.05);
+        }
+
+        .login-container h2 {
+            font-size: 2rem;
+            color: #ffc107;
+            margin-bottom: 1rem;
+        }
+
+        .login-container form {
+            width: 100%;
+        }
+
+        .login-container label {
+            display: block;
+            text-align: left;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .login-container input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            transition: border 0.3s, box-shadow 0.3s;
+        }
+
+        .login-container input:focus {
+            outline: none;
+            box-shadow: 0 0 10px #ffc107;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 10px;
+            background: #ffc107;
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .login-btn i {
+            transition: transform 0.3s;
+        }
+
+        .login-btn:hover {
+            background: #fff;
+            color: #000;
+        }
+
+        .login-btn:hover i {
+            transform: translateX(5px);
+        }
+
+        .signup-message {
+            margin-top: 1rem;
+        }
+
+        .signup-link {
+            color: #ffc107;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .signup-link:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+    </style>
+    <script>
+        function validateForm() {
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            if (phoneNumber.length !== 10) {
+                alert('Phone number must be exactly 10 digits.');
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form action="/user/login" method="POST" onsubmit="return validateForm()">
+            <label for="phoneNumber">Phone Number:</label>
+            <input type="tel" id="phoneNumber" name="phonenumber" pattern="\d{10}" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit" class="login-btn">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </button>
+        </form>
+        <div class="signup-message">
+            <p>Don't have an account? <a href="/user/signup" class="signup-link">Sign up here</a></p>
+        </div>
+    </div>
+</body>
+</html>

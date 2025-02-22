@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #000;
+            color: #eee;
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .navbar {
+            background-color: #111;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 6px rgba(255, 193, 7, 0.2);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            box-sizing: border-box;
+            z-index: 1000;
+        }
+
+        .navbar-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .brand {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ffc107;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-link, .logout-link {
+            color: #ffc107;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .nav-link:hover, .logout-link:hover {
+            color: #fff;
+            background-color: rgba(255, 193, 7, 0.1);
+            transform: scale(1.1);
+        }
+
+        .main-content {
+            margin-top: 100px;
+            padding: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #ffc107;
+        }
+
+        .product-details {
+            background-color: #222;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(255, 193, 7, 0.2);
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .product-image {
+            text-align: center;
+        }
+
+        .product-image img {
+            width: 200px;
+            height: auto;
+            border-radius: 5px;
+            border: 3px solid #ffc107;
+            object-fit: cover;
+        }
+
+        .product-details form {
+            width: 100%;
+        }
+
+        label {
+            color: #ffc107;
+            margin: 10px 0 5px 0;
+            display: block;
+        }
+
+        input[type="text"], input[type="file"], input[type="radio"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #333;
+            background-color: #333;
+            color: #eee;
+            box-sizing: border-box;
+        }
+
+        .gender-options {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .gender-options label {
+            margin: 0 10px 0 0;
+        }
+
+        button {
+            background-color: #ffc107;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #fff;
+            transform: scale(1.05);
+        }
+
+        .home-btn {
+            background-color: transparent;
+            color: #ffc107;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 10px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .home-btn:hover {
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: #111;
+            color: #ffc107;
+            margin-top: 2rem;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-left">
+            <a href="#" class="brand">
+                <i class="fas fa-crown"></i> Aura Events
+            </a>
+            <div class="nav-links">
+                <a href="/admin/home" class="nav-link">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="/admin/check-orders" class="nav-link">
+                    <i class="fas fa-clipboard-list"></i> Check Orders
+                </a>
+            </div>
+        </div>
+        <a href="/admin/logout" class="logout-link">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+    </nav>
+
+    <div class="main-content">
+        
+        <h1>Product Details</h1>
+
+        <div class="product-details">
+            <!-- Display current product image if available -->
+            <div class="product-image">
+                <% if (product.image) { %>
+                    <img src="/uploads/<%= product.image %>" alt="Product Image">
+                <% } else { %>
+                    <p>No image available</p>
+                <% } %>
+            </div>
+            
+            <form action="/admin/update-product/<%= product.id %>" method="POST" enctype="multipart/form-data">
+                <!-- Product Title -->
+                <label for="productTitle">Product Title:</label>
+                <input type="text" id="productTitle" name="title" value="<%= product.title %>">
+
+                <!-- Product Price -->
+                <label for="productPrice">Product Price:</label>
+                <input type="text" id="productPrice" name="price" value="<%= product.price %>">
+
+                <!-- Hidden inputs for category and username -->
+                <input type="hidden" name="category" value="<%= product.category %>">
+                <input type="hidden" name="username" value="<%= product.username %>">
+
+                <!-- Product Image -->
+                <label for="productImage">Product Image:</label>
+                <input type="file" id="productImage" name="photo">
+
+                <!-- Gender Field (Optional) -->
+                <label for="gender">Gender:</label>
+                <div class="gender-options">
+                    <input type="radio" id="male" name="gender" value="Male" <%= product.gender === 'Male' ? 'checked' : '' %>>
+                    <label for="male">Male</label>
+                    <input type="radio" id="female" name="gender" value="Female" <%= product.gender === 'Female' ? 'checked' : '' %>>
+                    <label for="female">Female</label>
+                    <input type="radio" id="both" name="gender" value="Both" <%= product.gender === 'Both' ? 'checked' : '' %>>
+                    <label for="both">Both</label>
+                </div>
+
+                <!-- Submit button -->
+                <button type="submit">Update Product</button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 Aura Events. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura Events - Welcome</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #000;
+            color: #eee;
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar {
+            background-color: #111;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px rgba(255, 193, 7, 0.2);
+        }
+
+        .brand {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ffc107;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 3rem 1rem;
+            animation: fadeInDown 1s ease-out forwards;
+        }
+
+        .hero h1 {
+            font-size: 2.3rem;
+            font-weight: bold;
+            color: #ffc107;
+            text-transform: uppercase;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-top: 1rem;
+            color: #ddd;
+        }
+
+        .main-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            padding: 2rem;
+            flex-grow: 1;
+        }
+
+        .card {
+            background-color: #222;
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 2.5rem;
+            width: 400px;
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card h2 {
+            color: #ffc107;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card p {
+            color: #ddd;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .btn {
+            background-color: #ffc107;
+            color: #000;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background-color: #fff;
+            transform: scale(1.05);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: #111;
+            color: #ffc107;
+            margin-top: auto;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="#" class="brand">
+            <i class="fas fa-crown"></i> Aura Events
+        </a>
+    </nav>
+
+    <div class="hero">
+        <h1>Welcome to Aura Events</h1>
+        <p>Your Ultimate Event Planning & Business Platform</p>
+    </div>
+
+    <div class="main-container">
+        <div class="card">
+            <h2><i class="fas fa-calendar-alt"></i> Plan Your Event</h2>
+            <p>Looking to create memorable moments? Find everything you need for your special occasions - from venues and photographers to catering and decor. Book trusted professionals and premium services all in one place.</p>
+            <button class="btn" onclick="window.location.href='user'">Book Services</button>
+        </div>
+        <div class="card">
+            <h2><i class="fas fa-store"></i> List Your Services</h2>
+            <p>Are you a service provider? Join our platform to showcase your expertise and grow your business. Connect with clients planning weddings, anniversaries, corporate events, and more. Register your services today.</p>
+            <button class="btn" onclick="window.location.href='admin'">Register Business</button>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 Aura Events. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

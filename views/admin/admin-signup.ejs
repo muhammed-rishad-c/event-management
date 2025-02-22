@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura Events - Business Registration</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #000;
+            color: #eee;
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar {
+            background-color: #111;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 6px rgba(255, 193, 7, 0.2);
+        }
+
+        .brand {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ffc107;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #222;
+            border-radius: 10px;
+            border: 1px solid #333;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        h1 {
+            color: #ffc107;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #ffc107;
+            font-size: 1.1rem;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #444;
+            background-color: #333;
+            color: #fff;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input[type="file"] {
+            padding: 0.5rem;
+            background-color: transparent;
+            border: none;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #ffc107;
+            box-shadow: 0 0 0 2px rgba(255, 193, 7, 0.2);
+        }
+
+        button {
+            background-color: #ffc107;
+            color: #000;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        button:hover {
+            background-color: #fff;
+            transform: scale(1.02);
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #ddd;
+        }
+
+        .login-link a {
+            color: #ffc107;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .login-link a:hover {
+            color: #fff;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: #111;
+            color: #ffc107;
+            margin-top: auto;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="#" class="brand">
+            <i class="fas fa-crown"></i> Aura Events
+        </a>
+    </nav>
+
+    <div class="container">
+        <h1><i class="fas fa-user-plus"></i> Business Registration</h1>
+        <form action="/admin/signup" method="POST" enctype="multipart/form-data" onsubmit="return validatePhoneNumber()">
+            <div class="form-group">
+                <label for="fullname"><i class="fas fa-user"></i> Full Name</label>
+                <input type="text" id="fullname" name="fullname" required>
+            </div>
+            <div class="form-group">
+                <label for="username"><i class="fas fa-at"></i> Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password"><i class="fas fa-lock"></i> Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="number"><i class="fas fa-phone"></i> Phone Number</label>
+                <input type="text" id="number" name="number" pattern="\d{10}" maxlength="10" required>
+            </div>
+            <div class="form-group">
+                <label for="location"><i class="fas fa-map-marker-alt"></i> Location</label>
+                <select id="location" name="location" required>
+                    <option value="">Select District</option>
+                    <option value="alappuzha">Alappuzha</option>
+                    <option value="ernakulam">Ernakulam</option>
+                    <option value="idukki">Idukki</option>
+                    <option value="kannur">Kannur</option>
+                    <option value="kasaragod">Kasaragod</option>
+                    <option value="kollam">Kollam</option>
+                    <option value="kottayam">Kottayam</option>
+                    <option value="kozhikode">Kozhikode</option>
+                    <option value="malappuram">Malappuram</option>
+                    <option value="palakkad">Palakkad</option>
+                    <option value="pathanamthitta">Pathanamthitta</option>
+                    <option value="thiruvananthapuram">Thiruvananthapuram</option>
+                    <option value="thrissur">Thrissur</option>
+                    <option value="wayanad">Wayanad</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="jobCategory"><i class="fas fa-briefcase"></i> Service Category</label>
+                <select id="jobCategory" name="category" required>
+                    <option value="">Select Service Category</option>
+                    <option value="entertainment">Entertainment</option>
+                    <option value="vehicleRental">Vehicle Rental</option>
+                    <option value="photographers">Photographers</option>
+                    <option value="Auditorium Rentals">Auditorium Rentals</option>
+                    <option value="Food Section">Food Section</option>
+                    <option value="Gold & Silver Rentals">Gold & Silver Rentals</option>
+                    <option value="Dress Rentals">Dress Rentals</option>
+                    <option value="Makeup & Beautician services">Makeup & Beautician services</option>
+                    <option value="Wedding Cards">Invitation Cards</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="photo"><i class="fas fa-camera"></i> Upload Photo</label>
+                <input type="file" id="photo" name="photo" accept="image/*" required>
+            </div>
+            <button type="submit"><i class="fas fa-paper-plane"></i> Register Business</button>
+        </form>
+        <p class="login-link">Already have an account? <a href="/admin/login">Login here</a></p>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 Aura Events. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        function validatePhoneNumber() {
+            const phoneNumber = document.getElementById('number').value;
+            if (phoneNumber.length !== 10) {
+                alert('Phone number must be exactly 10 digits');
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>

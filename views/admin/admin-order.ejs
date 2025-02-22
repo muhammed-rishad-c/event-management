@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order History</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #000;
+            color: #eee;
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .navbar {
+            background-color: #111;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 6px rgba(255, 193, 7, 0.2);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            box-sizing: border-box;
+            z-index: 1000;
+        }
+
+        .navbar-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .brand {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ffc107;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-link, .logout-link {
+            color: #ffc107;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .nav-link:hover, .logout-link:hover {
+            color: #fff;
+            background-color: rgba(255, 193, 7, 0.1);
+            transform: scale(1.1);
+        }
+
+        .history-container {
+            background-color: #222;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(255, 193, 7, 0.2);
+            width: 80%;
+            max-width: 800px;
+            margin: 100px 0 20px 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #ffc107;
+        }
+
+        .order {
+            border-bottom: 1px solid #333;
+            padding: 20px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .order:last-child {
+            border-bottom: none;
+        }
+
+        .order-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #ffc107;
+        }
+
+        .order-details {
+            margin: 0;
+            color: #ccc;
+            font-size: 1.1rem;
+        }
+
+        .order-photo {
+            text-align: center;
+            margin: 0 20px 0 0;
+            flex-shrink: 0;
+        }
+
+        .order-photo img {
+            width: 150px;
+            height: 100px;
+            border-radius: 10px;
+            border: 3px solid #ffc107;
+            object-fit: cover;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: #111;
+            color: #ffc107;
+            margin-top: 2rem;
+            width: 100%;
+        }
+
+        .home-btn {
+            background-color: transparent;
+            color: #ffc107;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 10px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .home-btn:hover {
+            color: #fff;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-left">
+            <a href="#" class="brand">
+                <i class="fas fa-crown"></i> Aura Events
+            </a>
+            <div class="nav-links">
+                <a href="/admin/home" class="nav-link">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="/admin/profile" class="nav-link">
+                    <i class="fas fa-user"></i> Profile
+                </a>
+            </div>
+        </div>
+        <a href="/admin/logout" class="logout-link">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+    </nav>
+
+    <div class="history-container">
+        <button class="home-btn" onclick="window.location.href='/admin/home'">
+            <i class="fas fa-home"></i> HOME
+        </button>
+        <h1>Order History</h1>
+        <% if (orders.length === 0) { %>
+            <p>There are no orders.</p>
+        <% } else { %>
+            <% orders.forEach(function(order) { %>
+                <div class="order">
+                    <div class="order-photo">
+                        <img src="/uploads/<%= order.image %>" alt="Order Photo">
+                    </div>
+                    <div>
+                        <p class="order-title"><%= order.program_name %></p>
+                        <p class="order-details">Work Done to: <%= order.phonenumber %></p>
+                        <p class="order-details">Date: <%= new Date(order.date).toLocaleDateString() %></p>
+                        <p class="order-details">Time: <%= order.time %></p>
+                        <p class="order-details">Address: <%= order.address %></p>
+                        <p class="order-details">Pincode: <%= order.pincode %></p>
+                        <p class="order-details">Description: <%= order.description %></p>
+                        <p class="order-details">Booked On: <%= new Date(order.booking_date).toLocaleString() %></p>
+                    </div>
+                </div>
+            <% }); %>
+        <% } %>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 Aura Events. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

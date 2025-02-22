@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Details - Aura Events</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #000;
+            color: #eee;
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background-color: #111;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 6px rgba(255, 193, 7, 0.2);
+        }
+
+        .navbar-left {
+            display: flex;
+            align-items: center;
+            margin-left: -1.5rem;
+        }
+
+        .navbar .brand {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ffc107;
+            margin-right: 2rem;
+            text-decoration: none;
+        }
+
+        .nav-button {
+            color: #ffc107;
+            text-decoration: none;
+            font-size: 1.2rem;
+            margin: 0 1rem;
+            transition: all 0.3s ease-in-out;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-button:hover {
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        .details-container {
+            background-color: #222;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(255, 193, 7, 0.1);
+            width: 90%;
+            max-width: 1200px;
+            margin: 2rem auto;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #ffc107;
+            font-size: 2.3rem;
+            text-transform: uppercase;
+        }
+
+        .booking {
+            display: flex;
+            gap: 2rem;
+            background-color: #333;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .booking-photo {
+            flex: 0 0 300px;
+            height: 300px;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .booking-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .booking-photo img:hover {
+            transform: scale(1.05);
+        }
+
+        .booking-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .booking-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #ffc107;
+        }
+
+        .booking-details {
+            margin: 0.5rem 0;
+            color: #ccc;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .booking-details i {
+            color: #ffc107;
+            width: 20px;
+        }
+
+        .no-bookings {
+            text-align: center;
+            color: #ffc107;
+            font-size: 1.2rem;
+            padding: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .booking {
+                flex-direction: column;
+            }
+
+            .booking-photo {
+                flex: 0 0 200px;
+                height: 200px;
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-left">
+            <a href="#" class="brand"><i class="fas fa-crown"></i> Aura Events</a>
+            <button class="nav-button" onclick="window.location.href='/user/home'">
+                <i class="fas fa-home"></i> Home
+            </button>
+            <button class="nav-button" onclick="window.location.href='/user/history-type'">
+                <i class="fas fa-arrow-left"></i> Back
+            </button>
+        </div>
+    </nav>
+
+    <div class="details-container">
+        <h1>Booking Details</h1>
+        <% if (bookings.length === 0) { %>
+            <p class="no-bookings">No bookings found.</p>
+        <% } else { %>
+            <% bookings.forEach(function(booking) { %>
+                <div class="booking">
+                    <div class="booking-photo">
+                        <img src="/uploads/<%= booking.image %>" alt="Booking Photo">
+                    </div>
+                    <div class="booking-content">
+                        <p class="booking-title"><%= booking.program_name %></p>
+                        <p class="booking-details"><i class="fas fa-user"></i> Work Done By: <%= booking.username %></p>
+                        <p class="booking-details"><i class="fas fa-calendar"></i> Date: <%= new Date(booking.date).toLocaleDateString() %></p>
+                        <p class="booking-details"><i class="fas fa-clock"></i> Time: <%= booking.time %></p>
+                        <p class="booking-details"><i class="fas fa-map-marker-alt"></i> Address: <%= booking.address %></p>
+                        <p class="booking-details"><i class="fas fa-map-pin"></i> Pincode: <%= booking.pincode %></p>
+                        <p class="booking-details"><i class="fas fa-info-circle"></i> Description: <%= booking.description %></p>
+                        <p class="booking-details"><i class="fas fa-calendar-check"></i> Booked On: <%= new Date(booking.booking_date).toLocaleString() %></p>
+                    </div>
+                </div>
+            <% }); %>
+        <% } %>
+    </div>
+</body>
+</html>

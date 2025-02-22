@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Your Event - Aura Events</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #000;
+            color: #eee;
+            padding: 20px;
+        }
+
+        .home-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background: none;
+            border: 2px solid #ffc107;
+            color: #ffc107;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .home-btn:hover {
+            background: #ffc107;
+            color: #000;
+            transform: scale(1.05);
+        }
+
+        .booking-container {
+            background-color: #111;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.2);
+            width: 100%;
+            max-width: 600px;
+            border: 1px solid #333;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            text-align: center;
+            color: #ffc107;
+            margin-bottom: 30px;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #ffc107;
+            font-weight: 500;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="time"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            background-color: #222;
+            border: 1px solid #333;
+            border-radius: 6px;
+            font-size: 14px;
+            color: #eee;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="date"]:focus,
+        input[type="time"]:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #ffc107;
+            box-shadow: 0 0 0 2px rgba(255, 193, 7, 0.1);
+        }
+
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffc107' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 16px;
+        }
+
+        select option {
+            background-color: #222;
+            color: #eee;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .book-btn {
+            width: 100%;
+            padding: 16px;
+            background-color: #ffc107;
+            color: #000;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .book-btn:hover {
+            background-color: #ffca2c;
+            transform: scale(1.02);
+        }
+
+        .date-alert {
+            display: none;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            background-color: rgba(220, 53, 69, 0.1);
+            border: 1px solid #dc3545;
+            color: #dc3545;
+            font-size: 14px;
+        }
+
+        .booked-date-indicator {
+            color: #dc3545;
+            font-size: 12px;
+            margin-top: 8px;
+            display: none;
+        }
+
+        @media (max-width: 576px) {
+            .booking-container {
+                padding: 25px;
+            }
+            h2 {
+                font-size: 24px;
+            }
+            .book-btn {
+                padding: 14px;
+                font-size: 15px;
+            }
+            .home-btn {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="home-btn" onclick="window.location.href='/user/home'">
+        <i class="fas fa-home"></i> Home
+    </button>
+
+    <div class="booking-container">
+        <h2><i class="fas fa-calendar-alt"></i> Book Your Event</h2>
+        <div id="dateAlert" class="date-alert"></div>
+        
+        <form id="bookingForm" action="/user/book-slot" method="POST">
+            <input type="hidden" name="username" value="<%= username %>">
+            
+            <div class="form-group">
+                <label for="programName">Program/Function:</label>
+                <select id="programName" name="programName" required>
+                    <option value="" disabled selected>Select your program/function</option>
+                    <option value="Wedding">Wedding</option>
+                    <option value="Engagement">Engagement</option>
+                    <option value="Birthday">Birthday</option>
+                    <option value="Anniversary">Anniversary</option>
+                    <option value="Corporate Event">Corporate Event</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="date">Select Date:</label>
+                <input type="date" id="date" name="date" required>
+                <div id="bookedDateIndicator" class="booked-date-indicator"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="time">Time:</label>
+                <input type="time" id="time" name="time" required>
+            </div>
+
+            <div class="form-group">
+                <label for="address">Address:</label>
+                <textarea id="address" name="address" placeholder="Enter complete address" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="pincode">Pincode:</label>
+                <input type="text" 
+                       id="pincode" 
+                       name="pincode" 
+                       placeholder="Enter pincode" 
+                       pattern="[0-9]{6}" 
+                       title="Please enter a valid 6-digit pincode"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Event Description:</label>
+                <textarea id="description" 
+                         name="description" 
+                         placeholder="Enter additional details about your event"
+                         required></textarea>
+            </div>
+
+            <button type="submit" class="book-btn">
+                <i class="fas fa-calendar-check"></i> Book Now
+            </button>
+        </form>
+    </div>
+
+    <script>
+        // Original JavaScript remains the same
+        document.addEventListener('DOMContentLoaded', function() {
+            const dateInput = document.getElementById('date');
+            const dateAlert = document.getElementById('dateAlert');
+            const bookedDateIndicator = document.getElementById('bookedDateIndicator');
+            const form = document.getElementById('bookingForm');
+            
+            const bookedDates = <%- JSON.stringify(bookedDates) %>;
+            
+            function formatDate(date) {
+                return new Date(date).toLocaleDateString('en-CA');
+            }
+
+            const bookedDateStrings = bookedDates.map(dateObj => {
+                return formatDate(dateObj.date);
+            });
+
+            function isDateBooked(dateStr) {
+                const formattedDate = formatDate(dateStr);
+                return bookedDateStrings.includes(formattedDate);
+            }
+
+            const today = new Date();
+            const formattedToday = formatDate(today);
+            dateInput.setAttribute('min', formattedToday);
+
+            dateInput.addEventListener('change', function(e) {
+                const selectedDate = this.value;
+                
+                if (isDateBooked(selectedDate)) {
+                    dateAlert.style.display = 'block';
+                    dateAlert.textContent = 'This date is already booked. Please select another date.';
+                    bookedDateIndicator.style.display = 'block';
+                    bookedDateIndicator.textContent = 'Date not available';
+                    this.value = '';
+                } else {
+                    dateAlert.style.display = 'none';
+                    bookedDateIndicator.style.display = 'none';
+                }
+            });
+
+            form.addEventListener('submit', function(e) {
+                const selectedDate = dateInput.value;
+                
+                if (isDateBooked(selectedDate)) {
+                    e.preventDefault();
+                    dateAlert.style.display = 'block';
+                    dateAlert.textContent = 'Please select an available date.';
+                    return false;
+                }
+            });
+
+            console.log('Initial booked dates:', bookedDateStrings);
+            console.log('Today:', formattedToday);
+        });
+    </script>
+</body>
+</html>
